@@ -1,0 +1,14 @@
+<div id="description-update-container">
+  <p class="description-form-label">Description</p>
+  <a class="toggle-description-update" href="#">Edit</a>
+  <p class="editable-description">{{description}}</p>
+</div>
+<form action="/card/{{id}}" method="post" id="card-description-form">
+  <fieldset>
+    <textarea class="card-description-ta" name="cardDescription">{{description}}</textarea>
+  </fieldset>
+  <fieldset>
+    <input id="description-save" type="button" value="Save">
+    <a class="close" id="description-close" href="#"></a>
+  </fieldset>
+</form>

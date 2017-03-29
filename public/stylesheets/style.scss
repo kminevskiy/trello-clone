@@ -1,0 +1,1166 @@
+@import "_mixins";
+
+$body_bg: #B2482C;
+$button_text_color: #fff;
+$list_bg: #E5E5E5;
+$button_dark_text_color: hsla(0, 0%, 0%, 0.5);
+$active_blue_selection: #2C7FDC;
+$submit_button_bg: #299126;
+
+/*
+=======================
+General styling
+=======================
+*/
+
+* {
+  font-family: Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+body {
+  background: $body_bg;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgba(15, 2, 4, 0.32);
+}
+
+main {
+  width: auto;
+  white-space: nowrap;
+  margin: 0 10px;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+a.close {
+  background-image: url(../images/close.png);
+  background-size: 20px;
+  width: 20px;
+  height: 20px;
+  float: right;
+  margin: 8px 5px 0 0;
+  transition: transform 200ms ease-in-out;
+  cursor: pointer;
+}
+
+a.close:hover {
+  transform: scale(1.3);
+}
+
+h3 {
+  color: rgba(0, 0, 0, 0.66);
+}
+
+[type="submit"], [value="Reset"],
+#nodescription-save, #description-save {
+  font-size: 14px;
+  background: $submit_button_bg;
+  cursor: pointer;
+}
+
+textarea, input {
+  box-shadow: 0 0.5px 1px -0.5px black;
+}
+
+#second-overlay {
+  @extend #overlay;
+  z-index: 15;
+  background: hsla(0, 0%, 0%, 0);
+}
+
+#third-overlay {
+  @extend #overlay;
+  background: hsla(0, 0%, 0%, 0);
+}
+
+.generic-form {
+  font-size: 14px;
+
+  form {
+    padding: 5px;
+  }
+
+  form input {
+    @include border-radius(5px);
+  }
+
+  form {
+    [type="submit"] {
+      font-size: 14px;
+      @include reset-appearance();
+      padding: 8px 18px;
+      background: $submit_button_bg;
+      color: #fff;
+      outline: none;
+      border: none;
+    }
+
+    [type="submit"], [value="Reset"] {
+      float: left;
+      box-shadow: inset 0 -30px 100px -45px hsla(0, 0%, 0%, 0.5);
+    }
+  }
+}
+
+/*
+=======================
+Clearfix
+=======================
+*/
+
+.cf:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/*
+=======================
+Top nav menu styling
+=======================
+*/
+
+#spacer {
+  height: 90px;
+  width: 100%;
+}
+
+header {
+  height: 45px;
+  width: 100%;
+  background: darken($body_bg, 10%);
+  padding: 8px;
+  position: fixed;
+  z-index: 2;
+
+  ul {
+    opacity: 0.8;
+  }
+
+  li {
+    display: inline-block;
+  }
+}
+
+.nav-button {
+  color: $button_text_color;
+  display: inline-block;
+  background: hsla(190, 90%, 95%, 0.3);
+  padding: 6px 15px;
+  border: none;
+  outline: none;
+  @include border-radius(4px);
+}
+
+.nav-button:hover {
+  background: hsla(190, 90%, 95%, 0.45);
+}
+
+.right-submenu {
+  float: right;
+  + .right-submenu {
+    margin-right: 6px;
+  }
+}
+
+[type="search"] {
+  width: 170px;
+  transition-duration: 400ms;
+  transition-timing-function: ease-in-out;
+  transition-property: width, background;
+  font-size: 16px;
+  @include reset-appearance();
+}
+
+[type="search"]::-webkit-input-placeholder {
+  @include element-transition(color 400ms ease-in-out);
+  color: $button_text_color;
+}
+
+[type="search"]:focus::-webkit-input-placeholder {
+  color: #000;
+}
+
+[type="search"]:focus {
+  width: 250px;
+  color: #000;
+  background: hsla(190, 90%, 95%, 1);
+}
+
+#new-board-button,
+#account-board-button,
+#board-notifications {
+  padding: 2px 10px;
+}
+
+#account-board-button,
+#board-notifications {
+  padding-top: 5px;
+  padding-bottom: 6px;
+}
+
+#new-board-button:before,
+#account-board-button:before,
+#board-notifications:before {
+  font-size: 24px;
+}
+
+#new-board-button:before {
+  content: "\002B";
+}
+
+#account-board-button:before {
+  content: "K";
+  font-size: 18px;
+}
+
+#board-notifications:before {
+  content: "N";
+  font-size: 18px;
+}
+
+
+/*
+=======================
+New list form styling
+=======================
+*/
+
+#add-new-list {
+  @extend .generic-form;
+  display: inline-block;
+
+  .placeholder-new-list,
+  form, form input {
+    @include border-radius(5px);
+  }
+
+  .placeholder-new-list,
+  form [type="text"] {
+    display: inline-block;
+    @include element-transition(background 400ms ease-in-out);
+    width: 240px;
+    padding: 12px 15px;
+    color: hsla(360, 100%, 100%, 0.7);
+    background: hsla(0, 0%, 0%, 0.3);
+    cursor: pointer;
+  }
+
+  .placeholder-new-list:hover {
+    background: hsla(0, 0%, 0%, 0.5);
+  }
+
+  form {
+    display: none;
+    float: left;
+    padding: 5px;
+    width: 250px;
+    background: hsla(360, 100%, 100%, 0.8);
+
+    [type="text"] {
+      font-size: 14px;
+      outline: none;
+      border: 1px solid gray;
+      margin: 5px auto;
+      cursor: text;
+      background: hsla(360, 100%, 100%, 0.8);
+      color: $button_dark_text_color;
+      display: block;
+    }
+  }
+}
+
+/*
+=======================
+List view styling
+=======================
+*/
+
+#lists-container {
+  float: left;
+}
+
+.list-container {
+  display: inline-block;
+  width: 270px;
+  min-height: 68px;
+  margin-right: 10px;
+  background: $list_bg;
+  vertical-align: top;
+  @include border-radius(5px);
+
+  .list-body {
+    min-height: 5px;
+  }
+
+  [type="text"] {
+    background: $list_bg;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 2px;
+    margin: 5px 8px 7px 8px;
+    width: 80%;
+    @include border-radius(3px);
+  }
+
+  input:focus {
+    background: #fff;
+  }
+
+  a {
+    padding: 8px 10px;
+    @include border-radius(5px);
+    display: block;
+    color: $button_dark_text_color;
+  }
+
+  .list-actions:hover,
+  .add-card:hover {
+    background: darken($list_bg, 10%);
+    color: hsla(0, 0%, 0%, 0.8);
+  }
+
+  .card-title {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: #fff;
+    margin: 5px;
+    border: 1px solid darken($list_bg, 10%);
+  }
+
+  .add-card:hover {
+    text-decoration: underline;
+  }
+
+  .card {
+    position: relative;
+  }
+
+  .card-edit {
+    @include element-transition(transform 300ms ease-in-out, opacity 300ms ease-in-out);
+    opacity: 0;
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    background-image: url(../images/card-edit.png);
+    background-repeat: no-repeat;
+    background-size: 18px;
+    height: 20px;
+    width: 20px;
+  }
+
+  .card:hover .card-edit {
+    opacity: .7;
+    transform: translateX(-10px);
+  }
+
+  .list-actions {
+    padding: 4px 6px;
+    margin: 2px 2px 0 0;
+    float: right;
+  }
+}
+
+.card-comments-count,
+.card-due-date {
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.62);
+  position: absolute;
+  bottom: 5px;
+}
+
+.card-comments-count {
+  right: 15px;
+}
+
+.card-due-date {
+  right: 55px;
+}
+
+.card-comments-count:before,
+.card-due-date:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  background-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.card-comments-count:before {
+  background-image: url(../images/comment.png);
+}
+
+.card-due-date:before {
+  background-image: url(../images/calendar.png);
+}
+
+/*
+=======================
+New card form styling
+=======================
+*/
+
+.new-card-form {
+  @extend .generic-form;
+
+  form {
+    display: block;
+    background: $list_bg;
+
+    textarea {
+      font-size: 14px;
+      resize: none;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      outline: none;
+      display: block;
+      margin-bottom: 5px;
+      width: 258px;
+      height: 60px;
+      padding: 4px;
+    }
+
+    a {
+      float: left;
+      margin: 3px 0 0 10px;
+      background-size: 28px;
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+    }
+  }
+}
+
+/*
+=======================
+Card name modal styling
+=======================
+*/
+
+#edit-modal {
+  display: none;
+  max-width: 100%;
+  max-height: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-20%, -50%);
+  z-index: 20;
+  background: hsla(360, 100%, 100%, 0);
+
+  fieldset {
+    display: inline-block;
+  }
+
+  .textfield {
+
+    input {
+      margin-top: 10px;
+    }
+  }
+
+  .actions {
+    margin-left: 10px;
+    vertical-align: top;
+
+    a {
+      @include border-radius(3px);
+      @include element-transition(transform 150ms ease-in-out);
+      color: darken($button_text_color, 10%);
+      float: none;
+      display: block;
+      padding: 8px 12px;
+      margin-bottom: 4px;
+      background: hsla(0, 0%, 0%, 0.8);
+    }
+
+    a:hover {
+      transform: translateX(10px);
+      color: lighten($button_text_color, 10%);
+    }
+  }
+
+  textarea {
+    @include border-radius(5px);
+    resize: none;
+    width: 100%;
+    height: 100px;
+    padding: 8px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+  }
+
+  + #overlay { display: block; }
+}
+
+#overlay {
+  display: none;
+  z-index: 15;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsla(0, 0%, 0%, 0.4);
+}
+
+
+/*
+=======================
+Card copy modal styling
+=======================
+*/
+
+.actions-header {
+    text-align: center;
+    color: $button_dark_text_color;
+    border-bottom: 1px solid lightgray;
+    padding: 10px 0;
+}
+
+#copy-modal,
+#move-modal,
+#labels-modal,
+#date-modal {
+  @include border-radius(5px);
+  position: fixed;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  width: 300px;
+  height: 360px;
+  background: #fff;
+  z-index: 25;
+
+  fieldset:first-of-type {
+    margin-bottom: 20px;
+  }
+
+  fieldset {
+    margin: 10px;
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+      color: lighten(#000, 20%);
+    }
+
+    textarea {
+      @include border-radius(5px);
+      padding: 5px;
+      width: 100%;
+      border-color: lightgray;
+      resize: none;
+      height: 80px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    select {
+      @include reset-appearance();
+      height: 40px;
+      margin-bottom: 5px;
+      padding-left: 5%;
+      font-size: 16px;
+      font-weight: bold;
+      outline: none;
+    }
+
+    select.copy-to-board,
+    select.move-to-board {
+      display: block;
+      width: 100%;
+    }
+
+    select.copy-to-list,
+    select.move-to-list {
+      display: inline-block;
+      width: 58%;
+    }
+
+    select.copy-to-position,
+    select.copy-to-position {
+      display: inline-block;
+      margin-left: 2%;
+      width: 40%;
+    }
+
+    select:hover {
+      cursor: pointer;
+      color: #fff;
+      background: $active_blue_selection;
+      border-color: $active_blue_selection;
+    }
+  }
+
+  + #third-overlay {
+    z-index: 20;
+    display: block;
+  }
+}
+
+#move-modal {
+  height: 260px;
+}
+
+/*
+=======================
+Due date modal styling
+=======================
+*/
+
+#date-modal {
+  width: 380px;
+  padding: 5px 20px 20px 20px;
+
+  [type="submit"] {
+    margin-left: 10px;
+  }
+
+  [value="Reset"] {
+    float: right;
+    padding: 8px 16px;
+    color: #fff;
+    background: #DE7955;
+    outline: none;
+    border: none;
+  }
+}
+
+/*
+=======================
+Edit labels modal styling
+=======================
+*/
+
+#labels-modal {
+  padding: 0 15px;
+  height: 400px;
+
+  [type="search"] {
+    width: 100%;
+    display: block;
+    margin: 10px 0;
+    height: 34px;
+    padding: 10px;
+    border: 1.5px solid #545454;
+    background: $list_bg;
+    box-shadow: none;
+    outline: none;
+    @include border-radius(4px);
+
+    &:hover, &:focus {
+      border-color: $active_blue_selection;
+      background: #fff;
+    }
+  }
+
+  a.close {
+    margin: 10px 0;
+  }
+
+  [type="search"]::-webkit-input-placeholder {
+    color: #525252;
+  }
+
+  [type="search"]::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  ul {
+    width: 100%;
+  }
+}
+
+.label-color {
+  position: relative;
+  height: 34px;
+  padding: 8px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  @include border-radius(4px);
+  transition: box-shadow 100ms ease-in-out;
+}
+
+.label-used {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-image: url(../images/label-cm.png);
+  background-size: 24px;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+}
+
+.label-color:hover {
+  box-shadow: inset 62px 0px 0px -45px hsla(0, 0, 0, 0.4);
+}
+
+.color-red {
+  background: #DE003B;
+}
+
+.color-blue {
+  background: #00A3DE;
+}
+
+.color-orange {
+  background: #F29800;
+}
+
+.color-green {
+  background: #1EAD00;
+}
+
+.color-black {
+  background: #000;
+}
+
+.color-black:hover {
+  box-shadow: inset 62px 0px 0px -45px hsla(360, 100%, 100%, 0.8);
+}
+
+.color-purple {
+  background: #F262FF;
+}
+
+.color-yellow {
+  background: #FFDA00;
+}
+
+.mini-label {
+  width: 42px;
+  height: 8px;
+  margin: 0 3px 3px 0;
+  display: inline-block;
+  @include border-radius(3px);
+}
+
+.front-card-labels {
+  line-height: 50%;
+  position: absolute;
+  margin: 5px 5px 0 16px;
+}
+
+/*
+=======================
+List actions modal styling
+=======================
+*/
+
+.card-labels {
+  position: absolute;
+  width: 60%;
+  top: 33%;
+  left: 3%;
+}
+
+#list-actions {
+  display: none;
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  height: 300px;
+  width: 300px;
+  z-index: 15;
+  border: 1px solid lightgray;
+  box-shadow: 0 0.5px 1px 0.5px lightgray;
+  @include border-radius(4px);
+}
+
+.actions-modal-container {
+  h3 {
+    @extend .actions-header;
+    margin-bottom: 5px;
+    padding: inherit 5px;
+  }
+
+  a {
+    display: block;
+    padding: 8px 10px;
+    color: $button_dark_text_color;
+  }
+
+  .mass-list-actions {
+    margin: 5px 0;
+    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+  }
+
+  a:not(.close):hover {
+    color: #fff;
+    background: #298FCA;
+  }
+}
+
+/*
+=======================
+Card extended modal styling
+=======================
+*/
+
+.card-info {
+  width: 80%;
+}
+
+.card-extended-container {
+  color: $button_dark_text_color;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 730px;
+  min-height: 600px;
+  background: $list_bg;
+  padding: 10px 30px;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.28);
+  z-index: 20;
+  @include border-radius(4px);
+
+  + #second-overlay {
+    display: block;
+  }
+}
+
+.editable-name {
+  display: block;
+  width: 100%;
+  resize: none;
+  border: none;
+  box-shadow: none;
+  background: $list_bg;
+  font-size: 18px;
+  padding: 5px;
+  height: 32px;
+  margin-left: -5px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.66);
+  @include border-radius(2px);
+}
+
+.editable-name:focus {
+  background: #fff;
+  outline: none;
+}
+
+.cards-list {
+  margin: 3px 5px 15px 0;
+  display: block;
+}
+
+.cards-list span {
+  text-decoration: underline;
+}
+
+#close-parent {
+  background-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+/*
+=======================
+Description form styling
+=======================
+*/
+
+.toggle-description-edit {
+  cursor: pointer;
+  display: block;
+  width: 90%;
+  padding: 8px;
+  margin-left: 15px;
+  @include border-radius(2px);
+  text-decoration: underline;
+}
+
+.toggle-description-edit:hover {
+  background: rgba(128, 128, 128, 0.2);
+  color: rgba(0, 0, 0, 0.68);
+}
+
+
+#card-nodescription-form,
+#card-description-form {
+  display: none;
+  width: 100%;
+  height: 130px;
+}
+
+.card-description-ta {
+  display: block;
+  width: 100%;
+  height: 100px;
+  border-color: lightgray;
+  background: $list_bg;
+  resize: none;
+  outline: none;
+  font-size: 14px;
+  padding: 5px;
+  box-shadow: inset 0px 0px 2px 1px rgba(0,0,0,0.30);
+  @include border-radius(4px);
+}
+
+#nodescription-save,
+#description-save {
+  float: left;
+  outline: none;
+  border: none;
+  padding: 8px 20px;
+  margin-top: 5px;
+  color: #fff;
+  @include reset-appearance();
+  @include border-radius(4px);
+}
+
+#nodescription-close,
+#description-close {
+  float: left;
+  margin-left: 10px;
+  background-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.description-form-label {
+  display: inline-block;
+}
+
+.editable-description {
+  display: block;
+  margin: 10px 0;
+  color: #000;
+  width: 80%;
+  cursor: pointer;
+}
+
+.card-actions-menu {
+  float: right;
+  margin: 80px -30px 0 0;
+
+  .extended-actions {
+    color: #000;
+    margin: 10px 0 20px 0;
+
+    li {
+      padding: 6px 24px;
+      margin: 7px 0;
+      background: #fff;
+      cursor: pointer;
+      box-shadow: 0 0 0.5px 0 hsla(0, 0%, 0%, 0.54);
+      transition: color 100ms ease-in-out, background 100ms ease-in-out;
+      @include border-radius(2px);
+    }
+
+    li:hover {
+      color: #fff;
+      background: $active_blue_selection;
+    }
+
+    #card-subscribe {
+      position: relative;
+    }
+
+    #card-subscribe-status {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+    }
+
+    #card-subscribe-status:before {
+      content: "";
+      display: inline-block;
+      background-image: url(../images/checkmark.png);
+      background-size: 26px;
+      width: 26px;
+      height: 26px;
+    }
+  }
+}
+
+.card-comment-form,
+.comment-edit-form form {
+  margin-top: 30px;
+  width: 80%;
+
+  form {
+    margin-top: 10px;
+  }
+
+  textarea {
+    width: 90%;
+    display: block;
+    height: 70px;
+    font-size: 14px;
+    padding: 8px;
+    outline: none;
+    resize: none;
+    border: none;
+    @include border-radius(3px);
+  }
+
+  [type="submit"] {
+    padding: 8px 24px;
+    margin-top: 10px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    color: #fff;
+  }
+
+  .disabled-submit {
+    background: lightgray;
+    color: rgba(0, 0, 0, 0.38);
+  }
+}
+
+.card-comments {
+  margin-top: 30px;
+
+  .card-comment {
+    margin-top: 10px;
+  }
+
+  .comment-body {
+    margin: 5px 10px;
+    padding: 5px 10px;
+    background: #fff;
+    width: 70%;
+    @include border-radius(3px);
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.21);
+  }
+
+  .comment-date {
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 5px;
+    display: inline-block;
+  }
+
+  #edit-comment, #delete-comment {
+    font-size: 14px;
+    color: $button_dark_text_color;
+    text-decoration: underline;
+  }
+
+  #edit-comment:hover, #delete-comment:hover {
+    color: lighten(#000, 20%);
+  }
+
+  .comment-edit-form {
+    display: none;
+  }
+}
+
+/*
+=======================
+Search results and notification modals styling
+=======================
+*/
+
+#search-results,
+#notifications {
+  display: none;
+  position: absolute;
+  top: 45px;
+  background: rgba(229, 229, 229, 0.97);
+  width: 400px;
+  height: 300px;
+  box-shadow: 0 1px 0.5px 0.5px rgba(0, 0, 0, 0.31);
+  @include border-radius(3px);
+}
+
+#search-results {
+  left: 93px;
+  width: 300px;
+  height: 450px;
+}
+
+#notifications {
+  right: 10px;
+  outline: none;
+
+  a.close {
+    position: absolute;
+    top: -6px;
+    right: -3px;
+    width: 24px;
+    height: 24px;
+    background-size: 24px;
+    float: none;
+  }
+}
+
+.found-card-info {
+  margin: 10px 15px;
+  display: block;
+  opacity: 0.6;
+  width: 70%;
+  font-size: 14px;
+  background: #fff;
+  box-shadow: 0 0.5px 0.5px 0 rgba(0, 0, 0, 0.40);
+  padding: 5px;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.79);
+  cursor: pointer;
+  transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+
+  li {
+    display: block;
+  }
+}
+
+.found-card-info:hover {
+  transform: scale(1.08);
+  opacity: 1;
+}
+
+.card-notification:first-of-type {
+  margin: 25px 25px 0 10px;
+}
+
+.card-notification {
+  position: relative;
+  padding: 10px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.56);
+  margin: 10px 25px 0 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 0.5px 0.5px rgba(0, 0, 0, 0.32);
+
+  .remove-notification {
+    position: absolute;
+    background-image: url(../images/circle-close.png);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 5px;
+    width: 20px;
+    height: 20px;
+  }
+}

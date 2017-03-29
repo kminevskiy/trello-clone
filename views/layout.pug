@@ -1,0 +1,30 @@
+include /_mixins
+
+doctype html
+html
+  head
+    title Trello Copy
+    +stylesheets("reset")
+    +stylesheets("datetimepicker")
+    +stylesheets("style")
+    +stylesheets("dragula")
+    +javascripts("/vendor/all")
+    +javascripts("/vendor/datetimepicker")
+    +javascripts("handlebars/templates")
+  body
+    header
+    main
+      div#spacer
+      div#modal
+      div#content.cf
+        div#list-actions
+        div#lists-container
+      block content
+    footer
+  +javascripts("application")
+  +javascripts("models/list", "models/card", "models/comment")
+  +javascripts("collections/lists", "collections/cards", "collections/comments")
+  +javascripts("views/top_menu", "views/new_list", "views/list", "views/index", "views/new_card", "views/card", "views/card_edit", "views/copy_card", "views/list_positions", "views/move_card", "views/list_actions", "views/edit_labels", "views/change_date", "views/card_extended", "views/card_description_form", "views/comment", "views/found_card", "views/activity", "views/commander")
+  script(type="text/javascript").
+    app.init()
+  +javascripts("routers/router")

@@ -1,0 +1,11 @@
+<form method="post" action="/cards">
+  <fieldset>
+    {{#with list}}
+      <input type="hidden" name="listID" value="{{id}}">
+    {{/with}}
+    <input type="hidden" name="position" value="{{position}}">
+    <textarea name="cardName" autofocus></textarea>
+    <input type="submit" value="Add">
+    <a class="close" href="#"></a>
+  </fieldset>
+</form>

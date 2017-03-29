@@ -1,0 +1,16 @@
+<div class="card-comment" id="{{id}}">
+  <h4>By {{comment_author}}</h4>
+  <p class="comment-body">{{comment_body}}</p>
+  <p class="comment-date">Posted on {{date_created}}</p>
+  <a href="#" id="edit-comment">Edit</a>
+  <span>-</span>
+  <a href="#" id="delete-comment">Delete</a>
+</div>
+<div class="comment-edit-form">
+  <form action="/comment/{{id}}" method="post">
+    <input type="hidden" name="commentID" value="{{id}}">
+    <textarea name="editComment" placeholder="Edit your comment...">{{comment_body}}</textarea>
+    <input id="edit-comment-submit" type="submit" value="Save">
+  </form>
+</div>
+

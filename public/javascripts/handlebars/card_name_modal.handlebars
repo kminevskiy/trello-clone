@@ -1,0 +1,18 @@
+<div class="generic-form" id="edit-modal">
+  <div class="card-labels"></div>
+  <form action="/card/{{card_id}}" method="post">
+    <fieldset class="textfield">
+      <textarea name="newCardName">{{card_name}}</textarea>
+      <input type="submit" value="Save">
+    </fieldset>
+    <fieldset class="actions">
+      <a href="#" class="edit-labels">Edit Labels</a>
+      <a href="#" class="change-members">Change Members</a>
+      <a href="#" class="move-card">Move</a>
+      <a href="#" class="copy-card">Copy</a>
+      <a href="#" class="change-due-date">Change Due Date</a>
+      <a href="#" class="archive-card">Archive</a>
+    </fieldset>
+  </form>
+</div>
+<div id="overlay"></div>

@@ -1,0 +1,37 @@
+<div class="generic-form" id="copy-modal">
+  <form action="/copy_card" method="post">
+    <h3 class="actions-header">Copy Card</h3>
+    <fieldset>
+      <label>Title</label>
+      {{#with card}}
+        <textarea name="cardName" autofocus>{{card_name}}</textarea>
+        <input type="hidden" name="cardID" value="{{id}}">
+        <input type="hidden" name="description" value="{{description}}">
+        <input type="hidden" name="dueDate" value="{{due_date}}">
+        <input type="hidden" name="dueTime" value="{{due_time}}">
+      {{/with}}
+    </fieldset>
+
+    <fieldset>
+      <label>Copy to...</label>
+      <select class="copy-to-board" name="toBoard">
+        <option selected>Board 1</option>
+      </select>
+      <select class="copy-to-list" name="toList">
+        {{#each lists}}
+          {{#if (sameNames listName thisListName)}}
+            <option value="{{listID}}" selected>{{listName}} (current)</option>
+          {{else}}
+            <option value="{{listID}}">{{listName}}</option>
+          {{/if}}
+        {{/each}}
+      </select><!--
+      --><select class="copy-to-position" name="toPosition">
+      </select>
+    </fieldset>
+    <fieldset>
+      <input type="submit" value="Create Card">
+    </fieldset>
+  </form>
+</div>
+<div id="third-overlay"></div>
